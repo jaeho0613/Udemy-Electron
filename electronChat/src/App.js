@@ -1,5 +1,5 @@
 const App = () => {
-	return <>My React</>
+	return <>My React World</>
 }
 
 export default App;

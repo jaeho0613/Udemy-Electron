@@ -1,6 +1,7 @@
 // Main Process
 const {app, BrowserWindow, Notification} = require('electron');
 const path = require('path');
+const isDev = !app.isPackaged;
 
 function createWindow() {
 	// Browser Window <- Renderer Process
@@ -16,7 +17,13 @@ function createWindow() {
 	})
 
 	win.loadFile('index.html').then(); // 해당 파일을 읽음
-	win.webContents.openDevTools(); // 실행 개발자 툴 열기
+	isDev && win.webContents.openDevTools(); // 실행 개발자 툴 열기
+}
+
+if (isDev) {
+	require('electron-reload')(__dirname, {
+		electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+	});
 }
 
 // Main Process 생성
