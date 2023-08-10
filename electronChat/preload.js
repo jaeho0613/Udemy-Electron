@@ -1,7 +1,6 @@
-const { contextBridge } = require('electron');
+const { ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld('versions', {
-	node: process.versions.node,
-	chrome: process.versions.chrome,
-	electron: process.versions.electron,
-})
+window.sendNotification = (message) => {
+	// console.log(window.notSecure);
+	ipcRenderer.send('notify', message);
+}

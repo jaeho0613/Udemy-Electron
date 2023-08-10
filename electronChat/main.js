@@ -1,18 +1,19 @@
 // Main Process
-const {app, BrowserWindow, Notification} = require('electron');
+const {app, BrowserWindow, Notification, ipcMain} = require('electron');
 const path = require('path');
 const isDev = !app.isPackaged;
 
 function createWindow() {
 	// Browser Window <- Renderer Process
 	const win = new BrowserWindow({
-		width: 1200, // 가로
-		height: 800, // 높이
+		width: 500, // 가로
+		height: 1000, // 높이
 		backgroundColor: "white", // 바탕색
-		webPreferences: {
-			preload: path.join(__dirname, 'preload.js'),
-			nodeIntegration: true, // node 기반 라이브러리 사용 여부
+		webPreferences:
+			{
+			nodeIntegration: false, // node 기반 라이브러리 사용 여부
 			contextIsolation: true, // 컨텍스트 분리 (찾아보기)
+			preload: path.join(__dirname, 'preload.js')
 		}
 	})
 
@@ -35,6 +36,16 @@ app.whenReady()
 	})
 	notification.show();
 	createWindow();
+})
+
+// 알림 구독
+ipcMain.on('notify', (_, args) => {
+	new Notification({title: 'Notification', body: args}).show();
+})
+
+// 알림 구독
+ipcMain.on('app-quit', (_, args) => {
+	app.quit();
 })
 
 // mac os 를 위한 설정
