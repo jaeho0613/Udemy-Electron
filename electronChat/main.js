@@ -12,6 +12,7 @@ function createWindow() {
 		webPreferences:
 			{
 			nodeIntegration: false, // node 기반 라이브러리 사용 여부
+			worldSafeExecuteJavaScript: true,
 			contextIsolation: true, // 컨텍스트 분리 (찾아보기)
 			preload: path.join(__dirname, 'preload.js')
 		}
