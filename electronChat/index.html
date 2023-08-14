@@ -1,17 +1,12 @@
 <!doctype html>
-<html lang="kr">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta content="script-src 'self'" http-equiv="content-security-policy" />
+    <meta content="script-src 'self'" http-equiv="Content-Security-Policy" />
     <title>Electron Chat</title>
   </head>
   <body>
-    <!-- react dom 설정 -->
     <div id="chatApp"></div>
-
-    <!-- 보안 설정으로 inline scripts 사용 불가능 webpack 설정으로 -->
-    <!--<script src="src/js/index.js"></script>-->
-
-    <script src="./build/js/app.js"></script>
   </body>
+  <script src="./build/js/app.js"></script>
 </html>
