@@ -1,17 +1,16 @@
-import Navbar from "../components/Navbar";
-import JoinedChat from "../components/JoinedChat";
-import AvailableChats from "../components/AvailableChats";
+import JoinedChatList from "../components/JoinedChatList";
+import AvailableChatsList from "../components/AvailableChatsList";
 import ViewTitle from "../components/shared/ViewTitle";
 
 const Home = () => {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        <JoinedChat />
+        <JoinedChatList />
       </div>
       <div className="col-9 fh">
         <ViewTitle />
-        <AvailableChats />
+        <AvailableChatsList />
       </div>
     </div>
   );
