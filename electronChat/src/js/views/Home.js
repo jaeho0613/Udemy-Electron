@@ -9,7 +9,7 @@ const Home = () => {
         <JoinedChatList />
       </div>
       <div className="col-9 fh">
-        <ViewTitle />
+        <ViewTitle text={"Chooses your channel"} />
         <AvailableChatsList />
       </div>
     </div>
