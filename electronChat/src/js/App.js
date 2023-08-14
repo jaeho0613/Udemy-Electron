@@ -2,6 +2,9 @@ import HomeView from "./views/Home";
 
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Settings from "./views/Settings";
+import Login from "./views/Login";
+import Register from "./views/Register";
 
 const App = () => {
   return (
@@ -10,10 +13,10 @@ const App = () => {
         <div className="content-wrapper">
           <Navbar />
           <Routes>
-            <Route path={"/settings"} element={<h1>I am Settings Viewer</h1>} />
-            <Route path={"/login"} element={<h1>I am Login Viewer</h1>} />
-            <Route path={"/register"} element={<h1>I am Register Viewer</h1>} />
             <Route path={"/"} element={<HomeView />} />
+            <Route path={"/settings"} element={<Settings />} />
+            <Route path={"/login"} element={<Login />} />
+            <Route path={"/register"} element={<Register />} />
           </Routes>
         </div>
       </Router>
