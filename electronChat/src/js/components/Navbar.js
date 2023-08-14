@@ -1,7 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const history = useNavigate();
+  const data = useSelector((state) => {
+    return state.message;
+  });
 
   return (
     <div className="chat-navbar">
@@ -19,6 +23,7 @@ const Navbar = () => {
           >
             Settings
           </button>
+          {data}
         </div>
         <div className="chat-navbar-inner-right">
           <span className="logged-in-user">Hi User</span>

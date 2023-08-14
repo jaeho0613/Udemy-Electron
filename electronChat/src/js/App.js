@@ -6,22 +6,26 @@ import SettingsView from "./views/Settings";
 import LoginView from "./views/Login";
 import RegisterView from "./views/Register";
 import ChatView from "./views/Chat";
+import { Provider } from "react-redux";
+import { configureStore } from "./store";
 
 const App = () => {
   return (
     <>
-      <Router>
-        <div className="content-wrapper">
-          <Navbar />
-          <Routes>
-            <Route path={"/"} element={<HomeView />} />
-            <Route path={"/chat/:id"} element={<ChatView />} />
-            <Route path={"/settings"} element={<SettingsView />} />
-            <Route path={"/login"} element={<LoginView />} />
-            <Route path={"/register"} element={<RegisterView />} />
-          </Routes>
-        </div>
-      </Router>
+      <Provider store={configureStore()}>
+        <Router>
+          <div className="content-wrapper">
+            <Navbar />
+            <Routes>
+              <Route path={"/"} element={<HomeView />} />
+              <Route path={"/chat/:id"} element={<ChatView />} />
+              <Route path={"/settings"} element={<SettingsView />} />
+              <Route path={"/login"} element={<LoginView />} />
+              <Route path={"/register"} element={<RegisterView />} />
+            </Routes>
+          </div>
+        </Router>
+      </Provider>
     </>
   );
 };
