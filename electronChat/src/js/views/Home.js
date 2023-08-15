@@ -7,7 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const chats = useSelector(({ chats }) => chats.items);
+  const chats = useSelector(({ chats }) => {
+    console.log(chats);
+    return chats.items;
+  });
 
   useEffect(() => {
     dispatch(fetchChats());
@@ -16,12 +19,11 @@ const Home = () => {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        {JSON.stringify(chats)}
-        <JoinedChatList />
+        <JoinedChatList chats={chats} />
       </div>
       <div className="col-9 fh">
         <ViewTitle text={"Chooses your channel"} />
-        <AvailableChatsList />
+        <AvailableChatsList chats={chats} />
       </div>
     </div>
   );
