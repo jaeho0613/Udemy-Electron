@@ -2,11 +2,14 @@ import JoinedChatList from "../components/JoinedChatList";
 import AvailableChatsList from "../components/AvailableChatsList";
 import ViewTitle from "../components/shared/ViewTitle";
 import { useEffect } from "react";
-import { fetchChats } from "../api/chats";
+import { fetchChats } from "../actions/chats";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetchChats().then((data) => console.log(data));
+    dispatch(fetchChats());
   }, []);
 
   return (
