@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../actions/auth";
 
 const Navbar = () => {
   const history = useNavigate();
-  const data = useSelector((state) => {
-    return state.message;
-  });
+  const dispatch = useDispatch();
+  const user = useSelector(({ auth }) => auth.user);
 
   return (
     <div className="chat-navbar">
@@ -23,13 +23,20 @@ const Navbar = () => {
           >
             Settings
           </button>
-          {data}
         </div>
         <div className="chat-navbar-inner-right">
           <span className="logged-in-user">Hi User</span>
           <Link to="/" className="btn btn-outline-success ml-2">
             Login
           </Link>
+          {user && (
+            <button
+              onClick={() => dispatch(logout())}
+              className="btn btn-outline-danger ml-2"
+            >
+              Login
+            </button>
+          )}
         </div>
       </nav>
     </div>

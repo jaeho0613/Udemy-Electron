@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 const Home = () => {
   const dispatch = useDispatch();
   const chats = useSelector(({ chats }) => {
-    console.log(chats);
     return chats.items;
   });
 

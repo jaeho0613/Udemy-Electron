@@ -1,13 +1,25 @@
 import LoginForm from "../components/LoginForm";
 import { useState } from "react";
 import RegisterForm from "../components/RegisterForm";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const Welcome = () => {
   const [isLoginView, setIsLoginView] = useState(true);
+  const user = useSelector(({ auth }) => auth.user);
+  const isChecking = useSelector(({ auth }) => auth.isChecking);
 
   const optInText = isLoginView
     ? ["Need an account?", "Register"]
     : ["Already registered", "Login"];
+
+  if (isChecking) {
+    return <h1>Checking the state...</h1>;
+  }
+
+  if (user) {
+    return <Navigate to={"/home "} />;
+  }
 
   return (
     <>
