@@ -1,6 +1,17 @@
+import { useForm } from "react-hook-form";
+
 const RegisterForm = () => {
+  const formData = useForm();
+
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
+
   return (
-    <form onSubmit={() => {}} className="centered-container-form">
+    <form
+      onSubmit={formData.handleSubmit(onSubmit)}
+      className="centered-container-form"
+    >
       <div className="header">Create an account</div>
       <div className="form-container">
         <div className="form-group">
@@ -8,9 +19,8 @@ const RegisterForm = () => {
           <input
             type="email"
             className="form-control"
-            name="email"
-            id="email"
             aria-describedby="emailHelp"
+            {...formData.register("email")}
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
@@ -20,29 +30,26 @@ const RegisterForm = () => {
           <label htmlFor="username">Username</label>
           <input
             type="text"
-            name="username"
             className="form-control"
-            id="username"
             aria-describedby="emailHelp"
+            {...formData.register("username")}
           />
         </div>
         <div className="form-group">
           <label htmlFor="avatar">Avatar</label>
           <input
             type="text"
-            name="avatar"
             className="form-control"
-            id="avatar"
             aria-describedby="emailHelp"
+            {...formData.register("avatar")}
           />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
-            name="password"
             type="password"
             className="form-control"
-            id="password"
+            {...formData.register("password")}
           />
         </div>
         {false && <div className="alert alert-danger small">Some Error</div>}

@@ -1,6 +1,16 @@
+import { useForm } from "react-hook-form";
+
 const LoginForm = () => {
+  const formData = useForm();
+
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
   return (
-    <form onSubmit={() => {}} className="centered-container-form">
+    <form
+      onSubmit={formData.handleSubmit(onSubmit)}
+      className="centered-container-form"
+    >
       <div className="header">Welcome here!</div>
       <div className="subheader">Login and chat with other people!</div>
       <div className="form-container">
@@ -9,9 +19,8 @@ const LoginForm = () => {
           <input
             type="email"
             className="form-control"
-            id="email"
-            name="email"
             aria-describedby="emailHelp"
+            {...formData.register("email")}
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
@@ -21,9 +30,8 @@ const LoginForm = () => {
           <label htmlFor="password">Password</label>
           <input
             type="password"
-            name="password"
             className="form-control"
-            id="password"
+            {...formData.register("password")}
           />
         </div>
         {false && <div className="alert alert-danger small">Some error</div>}
