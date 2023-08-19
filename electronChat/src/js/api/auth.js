@@ -24,3 +24,6 @@ export const register = async ({ email, password, username, avatar }) => {
     return Promise.reject(e.message);
   }
 };
+
+export const onAuthStateChanges = (onAuth) =>
+  firebase.auth().onAuthStateChanged(onAuth);

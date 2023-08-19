@@ -5,13 +5,21 @@ import Navbar from "./components/Navbar";
 import SettingsView from "./views/Settings";
 import WelcomeView from "./views/Welcome";
 import ChatView from "./views/Chat";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { configureStore } from "./store";
+import { useEffect } from "react";
+import { listenToAuthChanges } from "./actions/auth";
+
+const store = configureStore();
 
 const App = () => {
+  useEffect(() => {
+    store.dispatch(listenToAuthChanges());
+  }, []);
+
   return (
     <>
-      <Provider store={configureStore()}>
+      <Provider store={store}>
         <Router>
           <div className="content-wrapper">
             <Navbar />
