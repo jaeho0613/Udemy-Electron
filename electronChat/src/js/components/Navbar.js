@@ -36,7 +36,7 @@ const Navbar = () => {
                 onClick={() => dispatch(logout())}
                 className="btn btn-outline-danger ml-4"
               >
-                Login
+                Logout
               </button>
             </>
           )}
