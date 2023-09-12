@@ -1,4 +1,4 @@
-const AvailableChatsList = ({ chats }) => {
+export default function AvailableChatsList({ chats }) {
   return (
     <div className="container-fluid">
       <div className="row mt-3">
@@ -23,6 +23,4 @@ const AvailableChatsList = ({ chats }) => {
       </div>
     </div>
   );
-};
-
-export default AvailableChatsList;
+}

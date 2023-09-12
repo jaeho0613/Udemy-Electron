@@ -1,6 +1,6 @@
 import { Loader } from "./Loader";
 
-export const LoadingView = ({ message = "Just one moment pleases" }) => {
+export default function LoadingView({ message = "Just one moment pleases" }) {
   return (
     <div className={"loading-screen"}>
       <div className={"loading-view"}>
@@ -11,4 +11,4 @@ export const LoadingView = ({ message = "Just one moment pleases" }) => {
       </div>
     </div>
   );
-};
+}

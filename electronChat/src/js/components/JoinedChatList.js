@@ -1,9 +1,9 @@
+import React from "react";
 import ChatSearch from "./ChatSearch";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const JoinedChatList = ({ chats }) => {
-  const history = useNavigate();
-
+export default function JoinedChatsList({ chats }) {
+  const history = useHistory();
   return (
     <div className="list-container">
       <ChatSearch />
@@ -11,7 +11,7 @@ const JoinedChatList = ({ chats }) => {
         {chats.map((chat) => (
           <li
             key={chat.id}
-            onClick={() => history(`/chat/${chat.id}`)}
+            onClick={() => history.push(`/chat/${chat.id}`)}
             className="item"
           >
             <div className="item-status">
@@ -26,6 +26,4 @@ const JoinedChatList = ({ chats }) => {
       </ul>
     </div>
   );
-};
-
-export default JoinedChatList;
+}

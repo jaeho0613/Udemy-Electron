@@ -2,7 +2,7 @@ import db from "../db/firestore";
 import firebase from "firebase/app";
 import "firebase/auth";
 
-export const createUserProfile = (userProfile) =>
+const createUserProfile = (userProfile) =>
   db.collection("profiles").doc(userProfile.uid).set(userProfile);
 
 export const getUserProfile = (uid) =>
@@ -10,27 +10,20 @@ export const getUserProfile = (uid) =>
     .collection("profiles")
     .doc(uid)
     .get()
-    .then((snapshot) => snapshot.data());
+    .then((snanpshot) => snanpshot.data());
 
-export const register = async ({ email, password, username, avatar }) => {
-  try {
-    const { user } = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password);
-
-    await createUserProfile({
-      uid: user.uid,
-      username,
-      email,
-      avatar,
-      joinedChats: [],
-    });
-
-    return user;
-  } catch (e) {
-    return Promise.reject(e.message);
-  }
-};
+export async function register({ email, password, username, avatar }) {
+  const { user } = await firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password);
+  await createUserProfile({
+    uid: user.uid,
+    username,
+    email,
+    avatar,
+    joinedChats: [],
+  });
+}
 
 export const login = ({ email, password }) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
