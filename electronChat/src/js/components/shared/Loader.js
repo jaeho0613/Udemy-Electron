@@ -1,6 +1,6 @@
 import "./Loader.scss";
 
-export const Loader = () => {
+export default function Loader() {
   return (
     <div className="sk-chase">
       <div className="sk-chase-dot"></div>
@@ -11,4 +11,4 @@ export const Loader = () => {
       <div className="sk-chase-dot"></div>
     </div>
   );
-};
+}

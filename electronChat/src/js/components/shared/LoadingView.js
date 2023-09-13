@@ -1,4 +1,4 @@
-import { Loader } from "./Loader";
+import Loader from "./Loader";
 
 export default function LoadingView({ message = "Just one moment pleases" }) {
   return (

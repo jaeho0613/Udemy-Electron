@@ -20,6 +20,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import BaseLayout from "./layouts/Base";
 
 function AuthRoute({ children, ...rest }) {
   const user = useSelector(({ auth }) => auth.user);
@@ -57,7 +58,6 @@ function ChatApp() {
 
   return (
     <Router>
-      <Navbar />
       <ContentWrapper>
         <Switch>
           <Route path="/" exact>
