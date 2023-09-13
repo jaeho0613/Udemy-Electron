@@ -8,3 +8,17 @@ export default function BaseLayout({ children, ...props }) {
     </>
   );
 }
+
+function getDisplayName(Component) {
+  return Component.name || Component.displayName || "Component";
+}
+
+export const withBaseLayout = (Component, config) => (props) => {
+  const viewName = getDisplayName(Component);
+  return (
+    <>
+      <Navbar {...config} view={viewName} />
+      <Component {...props} />
+    </>
+  );
+};

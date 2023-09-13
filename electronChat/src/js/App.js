@@ -44,7 +44,14 @@ const ContentWrapper = ({ children }) => (
   <div className="content-wrapper">{children}</div>
 );
 
+const test = (props1) => (props2) => {
+  console.log(props1);
+  console.log(props2);
+};
+
 function ChatApp() {
+  test("1")("test");
+
   const dispatch = useDispatch();
   const isChecking = useSelector(({ auth }) => auth.isChecking);
 
