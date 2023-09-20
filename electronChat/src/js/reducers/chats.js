@@ -2,7 +2,7 @@ const DEFAULT_STATE = {
   items: [],
 };
 
-export const chatReducer = (state = DEFAULT_STATE, action) => {
+const chatReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case "CHATS_FETCH_SUCCESS":
       return { items: action.chats };
@@ -11,3 +11,5 @@ export const chatReducer = (state = DEFAULT_STATE, action) => {
     }
   }
 };
+
+export default chatReducer;

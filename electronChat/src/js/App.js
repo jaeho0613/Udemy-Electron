@@ -48,6 +48,7 @@ const ContentWrapper = ({ children }) => (
 function ChatApp() {
   const dispatch = useDispatch();
   const isChecking = useSelector(({ auth }) => auth.isChecking);
+  const isOnline = useSelector(({ app }) => app.isOnline);
 
   useEffect(() => {
     const unsubFromAuth = dispatch(listenToAuthChanges());
@@ -58,6 +59,10 @@ function ChatApp() {
       unsubFromConnection();
     };
   }, [dispatch]);
+
+  if (!isOnline) {
+    return <LoadingView message={"인터넷 연결을 해야합니다."} />;
+  }
 
   if (isChecking) {
     return <LoadingView />;
