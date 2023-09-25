@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchChats } from "../actions/chats";
 import JoinedChatsList from "../components/JoinedChatList";
-import BaseLayout, { withBaseLayout } from "../layouts/Base";
+import { withBaseLayout } from "../layouts/Base";
 import Notification from "../utils/notifications";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Home() {
   const dispatch = useDispatch();
@@ -22,14 +22,16 @@ function Home() {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        <JoinedChatsList chats={chats} />
+        <JoinedChatsList chats={[]} />
       </div>
       <div className="col-9 fh">
         <ViewTitle text="Choose your channel">
-          <Link className={'btn btn-outline-primary btn-sm'} to={'chatCreate'}>New</Link>
+          <Link className={"btn btn-outline-primary btn-sm"} to={"chatCreate"}>
+            New
+          </Link>
         </ViewTitle>
 
-        <AvailableChatsList chats={chats} />
+        <AvailableChatsList chats={[]} />
       </div>
     </div>
   );
