@@ -8,6 +8,7 @@ import { fetchChats } from "../actions/chats";
 import JoinedChatsList from "../components/JoinedChatList";
 import BaseLayout, { withBaseLayout } from "../layouts/Base";
 import Notification from "../utils/notifications";
+import {Link} from "react-router-dom";
 
 function Home() {
   const dispatch = useDispatch();
@@ -24,7 +25,10 @@ function Home() {
         <JoinedChatsList chats={chats} />
       </div>
       <div className="col-9 fh">
-        <ViewTitle text="Choose your channel" />
+        <ViewTitle text="Choose your channel">
+          <Link className={'btn btn-outline-primary btn-sm'} to={'chatCreate'}>New</Link>
+        </ViewTitle>
+
         <AvailableChatsList chats={chats} />
       </div>
     </div>

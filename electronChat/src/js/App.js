@@ -22,6 +22,7 @@ import {
 } from "react-router-dom";
 import BaseLayout from "./layouts/Base";
 import { listenToConnectionChanges } from "./actions/app";
+import ChatCreate from "./views/ChatCreate";
 
 function AuthRoute({ children, ...rest }) {
   const user = useSelector(({ auth }) => auth.user);
@@ -77,6 +78,9 @@ function ChatApp() {
           </Route>
           <AuthRoute path="/home">
             <HomeView />
+          </AuthRoute>
+          <AuthRoute path={"/chatCreate"}>
+            <ChatCreate />
           </AuthRoute>
           <AuthRoute path="/chat/:id">
             <ChatView />
