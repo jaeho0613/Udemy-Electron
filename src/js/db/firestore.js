@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import firebase, { initializeApp } from "firebase/app";
 import "firebase/firestore";
 
 const firebaseConfig = {
@@ -11,6 +11,8 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
+
+export const { Timestamp } = firebase.firestore;
 
 // Initialize Firebase
 export default initializeApp(firebaseConfig).firestore();

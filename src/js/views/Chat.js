@@ -7,8 +7,13 @@ import ChatMessagesList from "../components/ChatMessagesList";
 import ViewTitle from "../components/shared/ViewTitle";
 import { withBaseLayout } from "../layouts/Base";
 
-import { subscribeToChat, subscribeToProfile } from "../actions/chats";
+import {
+  sendChatMessage,
+  subscribeToChat,
+  subscribeToProfile,
+} from "../actions/chats";
 import LoadingView from "../components/shared/LoadingView";
+import Messenger from "../components/Messenger";
 
 function Chat() {
   const { id } = useParams();
@@ -48,6 +53,13 @@ function Chat() {
     );
   }, [peopleWatchers.current]);
 
+  const sendMessage = useCallback(
+    (message) => {
+      dispatch(sendChatMessage(message, id));
+    },
+    [id],
+  );
+
   if (!activeChat?.id) {
     return <LoadingView message={"Loading Chat..."} />;
   }
@@ -60,6 +72,7 @@ function Chat() {
       <div className="col-9 fh">
         <ViewTitle text={`Channel ${activeChat?.name}`} />
         <ChatMessagesList />
+        <Messenger onSubmit={sendMessage} />
       </div>
     </div>
   );
