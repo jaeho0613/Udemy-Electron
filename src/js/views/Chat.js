@@ -18,7 +18,6 @@ function Chat() {
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
-    debugger;
     return () => {
       unsubFromChat();
       unsubFromJoinedUsers();
@@ -33,7 +32,7 @@ function Chat() {
     jUsers.forEach((user) => {
       if (!peopleWatchers.current[user.uid]) {
         peopleWatchers.current[user.uid] = dispatch(
-          subscribeToProfile(user.uid),
+          subscribeToProfile(user.uid, id),
         );
       }
     });
