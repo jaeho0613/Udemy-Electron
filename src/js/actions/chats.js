@@ -72,4 +72,16 @@ export const sendChatMessage = (message, chatId) => (dispatch, getState) => {
     .then((_) => dispatch({ type: "CHATS_MESSAGE_SEND" }));
 };
 
+export const subscribeToMessage = (chatId) => (dispatch) => {
+  return api.subscribeToMessage(chatId, (changes) => {
+    const messages = changes.map((change) => {
+      if (change.type === "added") {
+        return { id: change.doc.id, ...change.doc.data() };
+      }
+    });
+
+    return dispatch({ type: "CHATS_SET_MESSAGE", messages, chatId });
+  });
+};
+
 // https://banner2.cleanpng.com/20180627/qvc/kisspng-the-legend-of-zelda-majora-s-mask-discord-compute-discord-icon-5b3371b7b55eb4.6840271215300981037429.jpg
