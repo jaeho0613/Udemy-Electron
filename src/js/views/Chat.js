@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -8,6 +8,7 @@ import ViewTitle from "../components/shared/ViewTitle";
 import { withBaseLayout } from "../layouts/Base";
 
 import { subscribeToChat, subscribeToProfile } from "../actions/chats";
+import LoadingView from "../components/shared/LoadingView";
 
 function Chat() {
   const { id } = useParams();
@@ -28,21 +29,28 @@ function Chat() {
     joinedUsers && subscribeToJoinedUsers(joinedUsers);
   }, [joinedUsers]);
 
-  const subscribeToJoinedUsers = (jUsers) => {
-    jUsers.forEach((user) => {
-      if (!peopleWatchers.current[user.uid]) {
-        peopleWatchers.current[user.uid] = dispatch(
-          subscribeToProfile(user.uid, id),
-        );
-      }
-    });
-  };
+  const subscribeToJoinedUsers = useCallback(
+    (jUsers) => {
+      jUsers.forEach((user) => {
+        if (!peopleWatchers.current[user.uid]) {
+          peopleWatchers.current[user.uid] = dispatch(
+            subscribeToProfile(user.uid, id),
+          );
+        }
+      });
+    },
+    [dispatch, id],
+  );
 
-  const unsubFromJoinedUsers = () => {
+  const unsubFromJoinedUsers = useCallback(() => {
     Object.keys(peopleWatchers.current).forEach((id) =>
       peopleWatchers.current[id](),
     );
-  };
+  }, [peopleWatchers.current]);
+
+  if (!activeChat?.id) {
+    return <LoadingView message={"Loading Chat..."} />;
+  }
 
   return (
     <div className="row no-gutters fh">
