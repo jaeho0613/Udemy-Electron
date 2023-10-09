@@ -1,70 +1,70 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
-import ChatUserList from "../components/ChatUsersList";
-import ChatMessagesList from "../components/ChatMessagesList";
-import ViewTitle from "../components/shared/ViewTitle";
-import { withBaseLayout } from "../layouts/Base";
+
+import React, { useEffect, useRef, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import ChatUserList from '../components/ChatUsersList';
+import ChatMessagesList from '../components/ChatMessagesList';
+import ViewTitle from '../components/shared/ViewTitle';
+import { withBaseLayout } from '../layouts/Base';
+import LoadingView from '../components/shared/LoadingView';
+import Messenger from '../components/Messenger';
 
 import {
-  sendChatMessage,
   subscribeToChat,
-  subscribeToMessage,
   subscribeToProfile,
-} from "../actions/chats";
-import LoadingView from "../components/shared/LoadingView";
-import Messenger from "../components/Messenger";
+  sendChatMessage,
+  subscribeToMessages,
+  registerMessageSubscription } from '../actions/chats';
 
 function Chat() {
   const { id } = useParams();
   const peopleWatchers = useRef({});
   const dispatch = useDispatch();
-  const activeChat = useSelector(({ chats }) => chats.activeChats[id]);
-  const messages = useSelector(({ chats }) => chats.messages[id]);
+  const activeChat = useSelector(({chats}) => chats.activeChats[id])
+  const messages = useSelector(({chats}) => chats.messages[id])
+  const messagesSub = useSelector(({chats}) => chats.messagesSubs[id])
   const joinedUsers = activeChat?.joinedUsers;
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
-    dispatch(subscribeToMessage(id));
+
+    if (!messagesSub)  {
+      const unsubFromMessages = dispatch(subscribeToMessages(id));
+      debugger
+      dispatch(registerMessageSubscription(id, unsubFromMessages));
+    }
+
     return () => {
       unsubFromChat();
       unsubFromJoinedUsers();
-    };
-  }, []);
+    }
+  }, [])
 
   useEffect(() => {
     joinedUsers && subscribeToJoinedUsers(joinedUsers);
-  }, [joinedUsers]);
+  }, [joinedUsers])
 
-  const subscribeToJoinedUsers = useCallback(
-    (jUsers) => {
-      jUsers.forEach((user) => {
-        if (!peopleWatchers.current[user.uid]) {
-          peopleWatchers.current[user.uid] = dispatch(
-            subscribeToProfile(user.uid, id),
-          );
-        }
-      });
-    },
-    [dispatch, id],
-  );
+  const subscribeToJoinedUsers = useCallback(jUsers => {
+    jUsers.forEach(user => {
+      if(!peopleWatchers.current[user.uid]) {
+        peopleWatchers.current[user.uid] = dispatch(subscribeToProfile(user.uid, id))
+      }
+    })
+  }, [dispatch, id])
+
+  const sendMessage = useCallback(message => {
+    dispatch(sendChatMessage(message, id))
+  }, [id])
 
   const unsubFromJoinedUsers = useCallback(() => {
-    Object.keys(peopleWatchers.current).forEach((id) =>
-      peopleWatchers.current[id](),
-    );
-  }, [peopleWatchers.current]);
-
-  const sendMessage = useCallback(
-    (message) => {
-      dispatch(sendChatMessage(message, id));
-    },
-    [id],
-  );
+    Object.keys(peopleWatchers.current)
+      .forEach(id => peopleWatchers.current[id]())
+  }, [peopleWatchers.current])
 
   if (!activeChat?.id) {
-    return <LoadingView message={"Loading Chat..."} />;
+    return <LoadingView message="Loading Chat..." />
   }
 
   return (
@@ -78,7 +78,7 @@ function Chat() {
         <Messenger onSubmit={sendMessage} />
       </div>
     </div>
-  );
+  )
 }
 
-export default withBaseLayout(Chat, { canGoBack: true });
+export default withBaseLayout(Chat, {canGoBack: true});

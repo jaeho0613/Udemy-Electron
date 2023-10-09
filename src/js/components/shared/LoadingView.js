@@ -1,7 +1,11 @@
-import React from "react";
-import Loader from "./Loader";
 
-export default function LoadingView({ message = "Just one moment please..." }) {
+
+import React from 'react';
+import Loader from './Loader';
+
+
+export default function LoadingView({message = 'Just one moment please...'}) {
+
   return (
     <div className="loading-screen">
       <div className="loading-view">
@@ -11,5 +15,5 @@ export default function LoadingView({ message = "Just one moment please..." }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
