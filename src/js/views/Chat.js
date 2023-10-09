@@ -21,6 +21,7 @@ import {
 function Chat() {
   const { id } = useParams();
   const peopleWatchers = useRef({});
+  const messageList = useRef();
   const dispatch = useDispatch();
   const activeChat = useSelector(({chats}) => chats.activeChats[id])
   const messages = useSelector(({chats}) => chats.messages[id])
@@ -54,7 +55,7 @@ function Chat() {
   }, [dispatch, id])
 
   const sendMessage = useCallback(message => {
-    dispatch(sendChatMessage(message, id))
+    dispatch(sendChatMessage(message, id)).then(_ => messageList.current.scrollIntoView(false))
   }, [id])
 
   const unsubFromJoinedUsers = useCallback(() => {
@@ -73,7 +74,7 @@ function Chat() {
       </div>
       <div className="col-9 fh">
         <ViewTitle text={`Channel ${activeChat?.name}`} />
-        <ChatMessagesList messages={messages} />
+        <ChatMessagesList messages={messages} innerRef={messageList}/>
         <Messenger onSubmit={sendMessage} />
       </div>
     </div>
