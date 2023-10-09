@@ -32,7 +32,6 @@ function Chat() {
 
     if (!messagesSub)  {
       const unsubFromMessages = dispatch(subscribeToMessages(id));
-      debugger
       dispatch(registerMessageSubscription(id, unsubFromMessages));
     }
 
