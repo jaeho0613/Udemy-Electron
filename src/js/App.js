@@ -23,6 +23,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
+import {loadInitialSettings} from "./actions/settings";
 
 function AuthRoute({children, ...rest}) {
   const user = useSelector(({auth}) => auth.user)
@@ -50,6 +51,7 @@ function ChatApp() {
   const user = useSelector(({auth}) => auth.user);
 
   useEffect(() => {
+    dispatch(loadInitialSettings());
     const unsubFromAuth = dispatch(listenToAuthChanges());
     const unsubFromConnection = dispatch(listenToConnectionChanges());
 
