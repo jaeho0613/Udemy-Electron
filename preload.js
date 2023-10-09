@@ -8,6 +8,11 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.send('notify', message);
     }
   },
+  appApi: {
+    quiteApp() {
+      ipcRenderer.send('app-quit');
+    }
+  },
   batteryApi: {
 
   },
