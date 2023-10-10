@@ -3,6 +3,22 @@ const { app, BrowserWindow, ipcMain, Notification, Menu } = require("electron");
 const path = require("path");
 const isDev = !app.isPackaged;
 
+function createSecondWindow() {
+  // Browser Window <- Renderer Process
+  const win = new BrowserWindow({
+    width: 1200,
+    height: 800,
+    backgroundColor: "#6e707e",
+    webPreferences: {
+      nodeIntegration: false,
+      worldSafeExecuteJavaScript: true,
+      contextIsolation: true,
+    },
+  });
+
+  win.loadFile("second.html");
+}
+
 function createWindow() {
   // Browser Window <- Renderer Process
   const win = new BrowserWindow({
@@ -32,6 +48,7 @@ app.whenReady().then(() => {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
   createWindow();
+  createSecondWindow();
 });
 
 ipcMain.on("notify", (_, message) => {
